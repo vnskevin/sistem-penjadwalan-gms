@@ -43,7 +43,127 @@
         .sidebar-scroll::-webkit-scrollbar-thumb {
             background: #334155;
         }
-    </style>
+
+        /* =========================
+            MENU
+        ========================= */
+
+        .menu {
+            width: 100%;
+        }
+
+        .menu > a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #d1d5db;
+            padding: 12px 14px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .menu > a:hover,
+        .menu > a.active {
+            background: #4f46e5;
+            color: white;
+        }
+
+
+        /* =========================
+        DROPDOWN
+        ========================= */
+
+        .menu-section {
+            margin-bottom: 6px;
+        }
+
+        .dropdown-btn {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: #d1d5db;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .dropdown-btn:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        .dropdown-btn span:first-child {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        /* =========================
+        SUBMENU
+        ========================= */
+
+        .submenu {
+            display: none;
+
+            padding-left: 10px;
+            margin-top: 4px;
+        }
+
+        .submenu.show {
+            display: block;
+        }
+
+        .submenu a {
+            display: block;
+
+            text-decoration: none;
+
+            color: #9ca3af;
+
+            padding: 10px 12px 10px 30px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+        .submenu a:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+
+        /* =========================
+        ARROW
+        ========================= */
+
+        .arrow {
+            font-size: 14px;
+
+            transition: transform 0.2s;
+        }
+
+        .arrow.rotate {
+            transform: rotate(180deg);
+        }
+            </style>
 
     @stack('styles')
 </head>
@@ -106,359 +226,110 @@
                     Main Menu
                 </p>
 
-                <!-- Dashboard -->
-                <a
-                    href="{{ url('/dashboard') }}"
-                    class="flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           bg-indigo-600 text-white
-                           font-semibold text-sm"
-                >
-
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                        />
-                    </svg>
-
+                 <!-- DASHBOARD -->
+                <a href="{{ route('dashboard') }}"
+                class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <span>🏠</span>
                     <span>Dashboard</span>
-
-                </a>
-
-            </div>
-
-
-            <!-- DATA MASTER -->
-            <div class="mb-7">
-
-                <p class="px-3 mb-3 text-[11px] font-bold
-                          uppercase tracking-wider text-slate-500">
-                    Data Master
-                </p>
-
-
-                <!-- Data Pelayan -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
-
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m4-9a4 4 0 110 8 4 4 0 010-8zm6 4a3 3 0 10-6 0"
-                        />
-                    </svg>
-
-                    <span>Data Pelayan</span>
-
+                    <br></br>
                 </a>
 
 
-                <!-- Departemen -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
+                <!-- DATA MASTER -->
+                <div class="menu-section">
 
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m4 0h1M9 11h1m4 0h1M9 15h1m4 0h1"
-                        />
-                    </svg>
+                    <button class="dropdown-btn" onclick="toggleMenu('data-master')">
+                        <span>
+                            📁 DATA MASTER
+                        </span>
 
-                    <span>Departemen</span>
+                        <span class="arrow" id="arrow-data-master">
+                            ▾
+                        </span>
+                    </button>
 
-                </a>
+                    <div class="submenu" id="data-master">
 
+                        <a href="#">
+                            👥 Data Pelayan
+                        </a>
 
-                <!-- Kriteria -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
+                        <a href="#">
+                            🏢 Data Departemen
+                        </a>
 
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a3 3 0 006 0M9 5a3 3 0 016 0m-6 7h6m-6 4h6"
-                        />
-                    </svg>
+                        <a href="#">
+                            📋 Data Kriteria
+                        </a>
 
-                    <span>Kriteria</span>
+                        <a href="#">
+                            📅 Ketersediaan
+                        </a>
 
-                </a>
-
-
-                <!-- Ketersediaan -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
-
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                    </svg>
-
-                    <span>Ketersediaan</span>
-
-                </a>
-
-            </div>
-
-
-            <!-- PENJADWALAN -->
-            <div class="mb-7">
-
-                <p class="px-3 mb-3 text-[11px] font-bold
-                          uppercase tracking-wider text-slate-500">
-                    Penjadwalan
-                </p>
-
-
-                <!-- Jadwal Ibadah -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
-
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                    </svg>
-
-                    <span>Jadwal Ibadah</span>
-
-                </a>
-
-
-                <!-- Proses Optimasi -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
-
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"
-                        />
-                    </svg>
-
-                    <span>Proses Optimasi</span>
-
-                </a>
-
-
-                <!-- Hasil Ranking -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
-
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 19V6l-2 2m2-2l2 2M15 19V4l-2 2m2-2l2 2M3 19h18"
-                        />
-                    </svg>
-
-                    <span>Hasil Ranking</span>
-
-                </a>
-
-
-                <!-- Jadwal Pelayanan -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
-
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622C17.176 19.29 21 14.591 21 9c0-1.042-.133-2.052-.382-3.016z"
-                        />
-                    </svg>
-
-                    <span>Jadwal Pelayanan</span>
-
-                </a>
-
-            </div>
-
-
-            <!-- LAPORAN -->
-            <div>
-
-                <p class="px-3 mb-3 text-[11px] font-bold
-                          uppercase tracking-wider text-slate-500">
-                    Lainnya
-                </p>
-
-                <!-- Laporan -->
-                <a
-                    href="#"
-                    class="sidebar-link flex items-center gap-3
-                           px-3 py-3 rounded-xl
-                           text-slate-300
-                           hover:bg-slate-800 hover:text-white
-                           transition"
-                >
-
-                    <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
-                    </svg>
-
-                    <span>Laporan</span>
-
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <!-- Sidebar Footer -->
-        <div class="p-4 border-t border-slate-800">
-
-            <div class="flex items-center gap-3 p-3 rounded-xl
-                        bg-slate-800">
-
-                <div
-                    class="w-10 h-10 rounded-full
-                           bg-indigo-600
-                           flex items-center justify-center
-                           font-bold text-sm"
-                >
-                    A
-                </div>
-
-                <div class="flex-1 min-w-0">
-
-                    <p class="text-sm font-semibold truncate">
-                        Admin / PIC
-                    </p>
-
-                    <p class="text-xs text-slate-400 truncate">
-                        Administrator
-                    </p>
+                    </div>
 
                 </div>
 
-            </div>
+
+                <!-- PENJADWALAN -->
+                <div class="menu-section">
+
+                    <button class="dropdown-btn" onclick="toggleMenu('penjadwalan')">
+                        <span>
+                            🗓️ PENJADWALAN
+                        </span>
+
+                        <span class="arrow" id="arrow-penjadwalan">
+                            ▾
+                        </span>
+                    </button>
+
+                    <div class="submenu" id="penjadwalan">
+
+                        <a href="#">
+                            📅 Jadwal Ibadah
+                        </a>
+
+                        <a href="#">
+                            ⚙️ Proses Optimasi
+                        </a>
+
+                        <a href="#">
+                            📊 Hasil Ranking
+                        </a>
+
+                        <a href="#">
+                            📆 Jadwal Pelayanan
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LAINNYA -->
+                <div class="menu-section">
+
+                    <button class="dropdown-btn" onclick="toggleMenu('lainnya')">
+                        <span>
+                            📂 LAINNYA
+                        </span>
+
+                        <span class="arrow" id="arrow-lainnya">
+                            ▾
+                        </span>
+                    </button>
+
+                    <div class="submenu" id="lainnya">
+
+                        <a href="#">
+                            📄 Laporan
+                        </a>
+
+                    </div>
+
+                </div>
+
 
         </div>
 
@@ -666,7 +537,21 @@
 
 </script>
 
+<script>
+    function toggleMenu(menuId) {
+
+        const menu = document.getElementById(menuId);
+
+        const arrow = document.getElementById('arrow-' + menuId);
+
+        menu.classList.toggle('show');
+
+        arrow.classList.toggle('rotate');
+    }
+</script>
+
 @stack('scripts')
+
 
 </body>
 </html>
