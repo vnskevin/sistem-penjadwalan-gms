@@ -17,3 +17,8 @@ Route::get('/login', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+// DEPARTEMEN
+Route::get('/departemen', function () {
+    return view('departemen.index');
+})->name('departemen.index');

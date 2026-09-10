@@ -254,7 +254,8 @@
                             👥 Data Pelayan
                         </a>
 
-                        <a href="#">
+                        <a href="{{ route('departemen.index') }}"
+                        class="{{ request()->routeIs('departemen.index') ? 'active' : '' }}">
                             🏢 Data Departemen
                         </a>
 
